@@ -18,40 +18,6 @@
     scroll-behavior: auto;
   }
   
-  /* Loading indicator */
-  .loading {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #18191a;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-    transition: opacity 0.5s;
-  }
-  
-  .loading.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  .loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 3px solid #333;
-    border-top: 3px solid #ee0979;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
   /* Scrolling Performance Optimizations */
   .profile-card,
   .bio-card,
@@ -157,16 +123,16 @@
       overflow: hidden;
     }
     
-    /* Simple Background */
-    .hero-background-simple {
+    /* Dynamic Background Canvas */
+    .hero-background-canvas {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       z-index: 0;
-      background: linear-gradient(135deg, #18191a 0%, #232324 50%, #18191a 100%);
-      opacity: 0.9;
+      opacity: 0.8;
+      pointer-events: auto; /* Allow interaction with the canvas */
     }
     .profile-img-wrapper {
       width: 120px;
@@ -1318,10 +1284,6 @@
   </style>
 </head>
 <body>
-  <!-- Loading Indicator -->
-  <div class="loading" id="loading">
-    <div class="loading-spinner"></div>
-  </div>
 
   <!-- Header/Navbar - Optimized for performance -->
   <nav class="navbar navbar-expand-lg navbar-dark custom-navbar sticky-top">
@@ -1346,8 +1308,8 @@
  <!-- Hero Section -->
 <div id="section-transition-overlay"></div>
 <section class="hero-section section-animate section-fade d-flex align-items-center justify-content-center" id="home">
-  <!-- Simplified background -->
-  <div class="hero-background-simple"></div>
+  <!-- Dynamic Background Canvas -->
+  <canvas id="hero-background-canvas" class="hero-background-canvas"></canvas>
   <div class="container" style="position: relative; z-index: 1;">
     <div class="row justify-content-center text-center">
       <!-- Photo centered at top -->
@@ -1721,26 +1683,13 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Error Handler -->
-  <script>
-    window.addEventListener('error', function(e) {
-      console.log('Error caught:', e.error);
-    });
-    
-    window.addEventListener('unhandledrejection', function(e) {
-      console.log('Unhandled promise rejection:', e.reason);
-    });
-  </script>
   <script>
     // Navbar active state and smooth scroll
     document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
       link.addEventListener('click', function(e) {
         if (this.hash) {
           e.preventDefault();
-          const targetElement = document.querySelector(this.hash);
-          if (targetElement) {
-            targetElement.scrollIntoView({ behavior: 'smooth' });
-          }
+          document.querySelector(this.hash).scrollIntoView({ behavior: 'smooth' });
         }
         document.querySelectorAll('.navbar-nav .nav-link').forEach(l => l.classList.remove('active'));
         this.classList.add('active');
@@ -1783,12 +1732,6 @@
       const photoGlow = document.querySelector('.photo-glow');
       const particles = document.querySelectorAll('.photo-particle');
       
-      // Check if elements exist before proceeding
-      if (!profileWrapper || !profileImg || !photoGlow) {
-        console.log('Some profile elements not found, skipping animation setup');
-        return;
-      }
-      
       // Set random movement variables for particles
       particles.forEach(particle => {
         // Random movement direction for each particle
@@ -1799,8 +1742,7 @@
       });
       
       // Add 3D tilt effect on mouse move
-      if (profileWrapper) {
-        profileWrapper.addEventListener('mousemove', (e) => {
+      profileWrapper.addEventListener('mousemove', (e) => {
         const rect = profileWrapper.getBoundingClientRect();
         const x = e.clientX - rect.left - rect.width / 2;
         const y = e.clientY - rect.top - rect.height / 2;
@@ -1827,23 +1769,15 @@
         });
       });
       
-        });
-      }
-      
       // Reset on mouse leave
-      if (profileWrapper) {
-        profileWrapper.addEventListener('mouseleave', () => {
+      profileWrapper.addEventListener('mouseleave', () => {
         profileImg.style.transform = '';
         photoGlow.style.opacity = '';
         photoGlow.style.filter = '';
       });
       
-        });
-      }
-      
       // Add click effect
-      if (profileWrapper) {
-        profileWrapper.addEventListener('click', () => {
+      profileWrapper.addEventListener('click', () => {
         profileImg.classList.add('section-pulse-animate');
         setTimeout(() => {
           profileImg.classList.remove('section-pulse-animate');
@@ -1867,7 +1801,6 @@
         });
       });
     });
-  }
   </script>
   <script>
 // Dynamic Role (Typewriter)
@@ -1924,21 +1857,12 @@ function animateDescription() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  // Hide loading indicator
-  const loading = document.getElementById('loading');
-  if (loading) {
-    setTimeout(() => {
-      loading.classList.add('hidden');
-    }, 1000);
-  }
-  
   setTimeout(typeDynamicRole, 600);
   animateDescription();
-  // initHeroBackground(); // Disabled complex canvas background
+  initHeroBackground();
 });
 
-// Dynamic Hero Background (Disabled)
-/*
+// Dynamic Hero Background
 function initHeroBackground() {
   const canvas = document.getElementById('hero-background-canvas');
   if (!canvas) return;
@@ -2269,7 +2193,6 @@ function initHeroBackground() {
   resizeCanvas();
   animate();
 }
-*/
 
 // Attach to About nav link
 document.addEventListener('DOMContentLoaded', function() {
@@ -2277,7 +2200,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (aboutLink) {
     aboutLink.addEventListener('click', function(e) {
       e.preventDefault();
-      // animateSectionTransition('about'); // Disabled to prevent errors
+      animateSectionTransition('about');
       // Update nav active state if needed
       document.querySelectorAll('.navbar-nav .nav-link').forEach(l => l.classList.remove('active'));
       this.classList.add('active');
@@ -2287,18 +2210,13 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script>
 function revealSectionsOnScroll() {
-  const sections = document.querySelectorAll('.section-animate');
-  if (sections.length === 0) return;
-  
-  sections.forEach(section => {
-    if (section && section.getBoundingClientRect) {
-      const rect = section.getBoundingClientRect();
-      // Section is at least 20% visible
-      if (rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2) {
-        section.classList.add('visible');
-      } else {
-        section.classList.remove('visible');
-      }
+  document.querySelectorAll('.section-animate').forEach(section => {
+    const rect = section.getBoundingClientRect();
+    // Section is at least 20% visible
+    if (rect.top < window.innerHeight * 0.8 && rect.bottom > window.innerHeight * 0.2) {
+      section.classList.add('visible');
+    } else {
+      section.classList.remove('visible');
     }
   });
 }
@@ -2311,16 +2229,13 @@ document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
     if (this.hash) {
       e.preventDefault();
       // Remove pulse from all sections
-      const pulseSections = document.querySelectorAll('.section-pulse-animate');
-      pulseSections.forEach(sec => {
-        if (sec && sec.classList) {
-          sec.classList.remove('section-pulse-animate');
-        }
-      });
+      document.querySelectorAll('.section-pulse-animate').forEach(sec => sec.classList.remove('section-pulse-animate'));
       // Scroll to section
       const target = document.querySelector(this.hash);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth' });
+        // Add pulse animation
+        
       }
       // Update nav active state
       document.querySelectorAll('.navbar-nav .nav-link').forEach(l => l.classList.remove('active'));
@@ -2337,32 +2252,30 @@ document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
   function updateActiveNav() {
     // Use requestAnimationFrame to batch DOM operations
     requestAnimationFrame(() => {
-      if (!sections || sections.length === 0) return;
-      
       let currentSection = sections[0];
       let scrollPos = window.scrollY + window.innerHeight / 3;
       
       // Read phase - gather all DOM measurements first
       const sectionPositions = sections.map(section => {
-        return section && section.offsetTop ? section.offsetTop : 0;
+        return section ? section.offsetTop : 0;
       });
       
       // Find current section based on scroll position
       for (let i = 0; i < sectionPositions.length; i++) {
-        if (sectionPositions[i] <= scrollPos && sections[i]) {
+        if (sectionPositions[i] <= scrollPos) {
           currentSection = sections[i];
         }
       }
       
       // Find which link should be active
-      const currentHash = currentSection && currentSection.id ? '#' + currentSection.id : '';
+      const currentHash = '#' + currentSection.id;
       let activeLink = null;
       
       // Write phase - batch all DOM updates
       navLinks.forEach(link => {
         if (link.hash === currentHash) {
           activeLink = link;
-        } else if (link.classList && link.classList.contains('active')) {
+        } else if (link.classList.contains('active')) {
           link.classList.remove('active');
         }
       });
@@ -2503,82 +2416,65 @@ window.requestIdleCallback = window.requestIdleCallback || function(callback) {
 
 document.addEventListener('DOMContentLoaded', function() {
   // Optimized Intersection Observer for section animations
-  const sections = document.querySelectorAll('.section-animate');
-  if (sections.length > 0) {
-    const sectionObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.target) {
-          // Use requestAnimationFrame for smoother animation triggering
-          requestAnimationFrame(() => {
-            if (entry.target.classList) {
-              entry.target.classList.add('visible');
-            }
-          });
-          
-          // Unobserve after animation to improve performance
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { 
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px' // Start animation slightly before element is in view
-    });
-    
-    // Observe all sections with animation classes
-    sections.forEach(section => {
-      if (section) {
-        sectionObserver.observe(section);
+  const sectionObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Use requestAnimationFrame for smoother animation triggering
+        requestAnimationFrame(() => {
+          entry.target.classList.add('visible');
+        });
+        
+        // Unobserve after animation to improve performance
+        observer.unobserve(entry.target);
       }
     });
-  }
+  }, { 
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px' // Start animation slightly before element is in view
+  });
+  
+  // Observe all sections with animation classes
+  document.querySelectorAll('.section-animate').forEach(section => {
+    sectionObserver.observe(section);
+  });
   // Use event delegation for hover effects to improve performance
   document.addEventListener('mouseover', function(e) {
     // Skill bubbles hover effect
     if (e.target.closest('.skill-bubble')) {
       const bubble = e.target.closest('.skill-bubble');
-      if (bubble && bubble.style) {
-        bubble.style.transform = 'translateY(-10px)';
-        bubble.style.background = 'rgba(255,255,255,0.1)';
-      }
+      bubble.style.transform = 'translateY(-10px)';
+      bubble.style.background = 'rgba(255,255,255,0.1)';
     }
     
     // Stat cards hover effect
     if (e.target.closest('.stat-card')) {
       const card = e.target.closest('.stat-card');
-      if (card) {
-        const numberElement = card.querySelector('.stat-number');
-        if (numberElement && numberElement.style) {
-          numberElement.style.transform = 'scale(1.1)';
-        }
+      const numberElement = card.querySelector('.stat-number');
+      if (numberElement) {
+        numberElement.style.transform = 'scale(1.1)';
       }
     }
     
     // Timeline markers hover effect
     if (e.target.closest('.timeline-marker')) {
       const marker = e.target.closest('.timeline-marker');
-      if (marker && marker.style) {
-        marker.style.transform = 'scale(1.3)';
-        marker.style.boxShadow = '0 0 0 8px rgba(238,9,121,0.3)';
-      }
+      marker.style.transform = 'scale(1.3)';
+      marker.style.boxShadow = '0 0 0 8px rgba(238,9,121,0.3)';
     }
     
     // Timeline content hover effect
     if (e.target.closest('.timeline-content-modern')) {
       const content = e.target.closest('.timeline-content-modern');
-      if (content && content.style) {
-        content.style.transform = 'translateX(10px)';
-        content.style.background = 'rgba(255,255,255,0.1)';
-      }
+      content.style.transform = 'translateX(10px)';
+      content.style.background = 'rgba(255,255,255,0.1)';
     }
     
     // Profile image hover effect
     if (e.target.closest('.profile-img-container')) {
       const container = e.target.closest('.profile-img-container');
-      if (container) {
-        const overlay = container.querySelector('.profile-img-overlay');
-        if (overlay && overlay.style) {
-          overlay.style.opacity = '0.3';
-        }
+      const overlay = container.querySelector('.profile-img-overlay');
+      if (overlay) {
+        overlay.style.opacity = '0.3';
       }
     }
   });
@@ -2587,49 +2483,39 @@ document.addEventListener('DOMContentLoaded', function() {
     // Skill bubbles hover effect
     if (e.target.closest('.skill-bubble')) {
       const bubble = e.target.closest('.skill-bubble');
-      if (bubble && bubble.style) {
-        bubble.style.transform = 'translateY(0)';
-        bubble.style.background = 'rgba(255,255,255,0.05)';
-      }
+      bubble.style.transform = 'translateY(0)';
+      bubble.style.background = 'rgba(255,255,255,0.05)';
     }
     
     // Stat cards hover effect
     if (e.target.closest('.stat-card')) {
       const card = e.target.closest('.stat-card');
-      if (card) {
-        const numberElement = card.querySelector('.stat-number');
-        if (numberElement && numberElement.style) {
-          numberElement.style.transform = 'scale(1)';
-        }
+      const numberElement = card.querySelector('.stat-number');
+      if (numberElement) {
+        numberElement.style.transform = 'scale(1)';
       }
     }
     
     // Timeline markers hover effect
     if (e.target.closest('.timeline-marker')) {
       const marker = e.target.closest('.timeline-marker');
-      if (marker && marker.style) {
-        marker.style.transform = 'scale(1)';
-        marker.style.boxShadow = '0 0 0 4px rgba(238,9,121,0.2)';
-      }
+      marker.style.transform = 'scale(1)';
+      marker.style.boxShadow = '0 0 0 4px rgba(238,9,121,0.2)';
     }
     
     // Timeline content hover effect
     if (e.target.closest('.timeline-content-modern')) {
       const content = e.target.closest('.timeline-content-modern');
-      if (content && content.style) {
-        content.style.transform = 'translateX(0)';
-        content.style.background = 'rgba(255,255,255,0.05)';
-      }
+      content.style.transform = 'translateX(0)';
+      content.style.background = 'rgba(255,255,255,0.05)';
     }
     
     // Profile image hover effect
     if (e.target.closest('.profile-img-container')) {
       const container = e.target.closest('.profile-img-container');
-      if (container) {
-        const overlay = container.querySelector('.profile-img-overlay');
-        if (overlay && overlay.style) {
-          overlay.style.opacity = '0.5';
-        }
+      const overlay = container.querySelector('.profile-img-overlay');
+      if (overlay) {
+        overlay.style.opacity = '0.5';
       }
     }
   });
