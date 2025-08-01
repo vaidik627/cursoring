@@ -487,99 +487,351 @@
     /* Skills */
     .skills-section {
       background: var(--section-bg);
-      padding: 60px 0 40px 0;
+      padding: 80px 0 60px 0;
     }
-    .skills-title {
+    
+    /* Skills Categories */
+    .skill-category-card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
       text-align: center;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
-      color: var(--primary);
-    }
-    .skill-item {
-      margin-bottom: 1.5rem;
-    }
-    .skill-label {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 500;
-      color: #fff;
-      margin-bottom: 0.3rem;
-    }
-    .skill-bar {
-      background: #232324;
-      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      position: relative;
       overflow: hidden;
-      height: 16px;
-      box-shadow: 0 2px 8px rgba(77,163,255,0.08);
     }
-    .skill-bar-fill {
+    
+    .skill-category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient);
+      opacity: 0.1;
+      transition: left 0.3s ease;
+    }
+    
+    .skill-category-card:hover::before,
+    .skill-category-card.active::before {
+      left: 0;
+    }
+    
+    .skill-category-card:hover,
+    .skill-category-card.active {
+      transform: translateY(-5px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 30px rgba(238,9,121,0.2);
+    }
+    
+    .category-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    
+    .skill-category-card h5 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    
+    .skill-category-card p {
+      color: var(--text-sub);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    
+    /* Skills Content */
+    .skills-content {
+      position: relative;
+    }
+    
+    .skills-panel {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+    
+    .skills-panel.active {
+      display: block;
+    }
+    
+    /* Modern Skill Items */
+    .skill-item-modern {
+      background: var(--card-bg);
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+    }
+    
+    .skill-item-modern:hover {
+      transform: translateX(5px);
+      border-left-color: var(--primary);
+      box-shadow: 0 8px 30px rgba(238,9,121,0.15);
+    }
+    
+    .skill-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      color: white;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+    
+    .skill-info {
+      flex: 1;
+    }
+    
+    .skill-info h5 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      font-weight: 700;
+    }
+    
+    .skill-info p {
+      color: var(--text-sub);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    
+    .skill-percentage {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-left: 1rem;
+    }
+    
+    /* Modern Progress Bars */
+    .skill-progress-modern {
+      position: relative;
+    }
+    
+    .progress-bar-modern {
+      width: 100%;
+      height: 8px;
+      background: #232324;
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .progress-fill {
       height: 100%;
       width: 0;
       background: var(--gradient);
-      border-radius: 30px;
-      transition: width 1.2s cubic-bezier(.68,-0.55,.27,1.55);
-      color: #fff;
-      font-weight: 600;
-      font-size: 0.95rem;
-      padding-right: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
+      border-radius: 10px;
+      transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+    
+    .progress-fill::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
     /* Portfolio */
     .portfolio-section {
       background: var(--section-bg);
-      padding: 60px 0 40px 0;
+      padding: 80px 0 60px 0;
     }
-    .portfolio-title {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 700;
-      margin-bottom: 2rem;
-      color: var(--primary);
+    
+    /* Portfolio Filter */
+    .portfolio-filter {
+      margin-bottom: 3rem;
     }
-    .project-card {
-      background: var(--card-bg);
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(238,9,121,0.10);
-      overflow: hidden;
-      position: relative;
-      transition: transform 0.3s, box-shadow 0.3s;
-      margin-bottom: 2rem;
+    
+    .filter-btn {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--text-main);
+      padding: 0.6rem 1.5rem;
+      margin: 0 0.5rem;
+      border-radius: 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
-    .project-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 8px 32px rgba(238,9,121,0.18);
-    }
-    .project-img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      transition: filter 0.4s, transform 0.4s;
-    }
-    .project-card:hover .project-img {
-      filter: brightness(0.85) blur(1px);
-      transform: scale(1.07);
-    }
-    .project-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
+    
+    .filter-btn:hover,
+    .filter-btn.active {
       background: var(--gradient);
-      color: #fff;
-      opacity: 0;
+      border-color: transparent;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(238,9,121,0.3);
+    }
+    
+    /* Modern Project Cards */
+    .project-card-modern {
+      background: var(--card-bg);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    
+    .project-card-modern:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 20px 60px rgba(238,9,121,0.2);
+    }
+    
+    .project-image-container {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+    
+    .project-image-placeholder {
+      width: 100%;
+      height: 100%;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      font-size: 3rem;
+      color: white;
+      position: relative;
+    }
+    
+    .web-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .mobile-gradient {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+    
+    .design-gradient {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+    
+    .project-overlay-modern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.4s ease;
+    }
+    
+    .project-card-modern:hover .project-overlay-modern {
+      opacity: 1;
+    }
+    
+    .project-overlay-content {
       text-align: center;
-      transition: opacity 0.4s;
-      z-index: 2;
+      color: white;
+      padding: 2rem;
     }
-    .project-card:hover .project-overlay {
-      opacity: 0.95;
+    
+    .project-overlay-content h4 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
     }
+    
+    .project-overlay-content p {
+      margin-bottom: 1.5rem;
+      opacity: 0.9;
+    }
+    
+    .project-tech {
+      margin-bottom: 1.5rem;
+    }
+    
+    .tech-tag {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      padding: 0.3rem 0.8rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      margin: 0.2rem;
+      font-weight: 600;
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    
+    .project-link {
+      color: white;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border: 2px solid white;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+    
+    .project-link:hover {
+      background: white;
+      color: var(--primary);
+    }
+    
+    .project-info {
+      padding: 1.5rem;
+    }
+    
+    .project-info h5 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    
+    .project-info p {
+      color: var(--text-sub);
+      margin: 0;
+    }
+    
+    /* Portfolio Grid Animation */
+    .portfolio-item {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+    
+    .portfolio-item:nth-child(1) { animation-delay: 0.1s; }
+    .portfolio-item:nth-child(2) { animation-delay: 0.2s; }
+    .portfolio-item:nth-child(3) { animation-delay: 0.3s; }
+    .portfolio-item:nth-child(4) { animation-delay: 0.4s; }
+    .portfolio-item:nth-child(5) { animation-delay: 0.5s; }
+    .portfolio-item:nth-child(6) { animation-delay: 0.6s; }
     /* Contact */
     .contact-section {
       background: var(--section-bg);
@@ -678,6 +930,81 @@
       .about-card, .contact-form-card {
         padding: 1.2rem 0.7rem;
       }
+      
+      /* Mobile responsive adjustments */
+      .filter-btn {
+        margin: 0.3rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+      
+      .project-card-modern {
+        margin-bottom: 1.5rem;
+      }
+      
+      .project-image-container {
+        height: 180px;
+      }
+      
+      .skill-category-card {
+        padding: 1.5rem 1rem;
+        margin-bottom: 1rem;
+      }
+      
+      .category-icon {
+        font-size: 2rem;
+      }
+      
+      .skill-item-modern {
+        padding: 1.2rem;
+      }
+      
+      .skill-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+      
+      .project-overlay-content {
+        padding: 1.5rem;
+      }
+      
+      .project-overlay-content h4 {
+        font-size: 1.3rem;
+      }
+      
+      .project-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+    
+    /* Additional animations */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .project-card-modern:hover .project-image-placeholder i {
+      animation: pulse 1s ease-in-out;
+    }
+    
+    .skill-category-card:hover .category-icon {
+      animation: float 2s ease-in-out infinite;
+    }
+    
+    /* Smooth transitions for all interactive elements */
+    .filter-btn,
+    .project-card-modern,
+    .skill-category-card,
+    .skill-item-modern,
+    .project-link {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .dynamic-photo-wrapper {
   position: relative;
@@ -1316,7 +1643,7 @@
       <div class="col-12 d-flex justify-content-center mb-4">
         <div class="dynamic-photo-wrapper">
           <div class="photo-glow"></div>
-          <img src="assets/img/perfil.png" alt="Profile Photo" class="dynamic-profile-img" loading="lazy">
+          <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMjAwIiB5Mj0iMjAwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDk5Q0M7c3RvcC1vcGFjaXR5OjEiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDA3N0E4O3N0b3Atb3BhY2l0eToxIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+" alt="Profile Photo" class="dynamic-profile-img" loading="lazy">
           <div class="photo-particles">
             <div class="photo-particle"></div>
             <div class="photo-particle"></div>
@@ -1363,7 +1690,7 @@
       <div class="col-lg-4 mb-4 mb-lg-0">
         <div class="profile-card">
           <div class="profile-img-container">
-            <img src="assets/img/about.jpg" alt="Alex Bennett" class="profile-img" loading="lazy">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSJ1cmwoI2dyYWRpZW50KSIvPgo8ZGVmcz4KPGxpbmVhckdyYWRpZW50IGlkPSJncmFkaWVudCIgeDE9IjAiIHkxPSIwIiB4Mj0iMjAwIiB5Mj0iMjAwIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+CjxzdG9wIG9mZnNldD0iMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiMwMDk5Q0M7c3RvcC1vcGFjaXR5OjEiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMDA3N0E4O3N0b3Atb3BhY2l0eToxIi8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+" alt="Alex Bennett" class="profile-img" loading="lazy">
             <div class="profile-img-overlay"></div>
           </div>
           <div class="profile-info">
@@ -1569,32 +1896,412 @@
 <!-- Skills Section -->
 <section class="skills-section section-animate section-scale" id="skills">
   <div class="container">
-    <h2 class="skills-title">Skills</h2>
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="skill-item">
-          <div class="skill-label"><span>HTML5</span><span>95%</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" data-percentage="95"></div></div>
+    <div class="section-title text-center mb-5">
+      <h2 class="gradient-text">Skills & Expertise</h2>
+      <p class="text-muted">My technical skills and professional competencies</p>
+    </div>
+    
+    <!-- Skills Categories -->
+    <div class="skills-categories mb-5">
+      <div class="row justify-content-center">
+        <div class="col-md-3 mb-3">
+          <div class="skill-category-card active" data-category="frontend">
+            <div class="category-icon">
+              <i class="ri-layout-line"></i>
+            </div>
+            <h5>Frontend</h5>
+            <p>UI/UX Development</p>
+          </div>
         </div>
-        <div class="skill-item">
-          <div class="skill-label"><span>CSS3 & Sass</span><span>92%</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" data-percentage="92"></div></div>
+        <div class="col-md-3 mb-3">
+          <div class="skill-category-card" data-category="backend">
+            <div class="category-icon">
+              <i class="ri-server-line"></i>
+            </div>
+            <h5>Backend</h5>
+            <p>Server & Database</p>
+          </div>
         </div>
-        <div class="skill-item">
-          <div class="skill-label"><span>JavaScript</span><span>90%</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" data-percentage="90"></div></div>
+        <div class="col-md-3 mb-3">
+          <div class="skill-category-card" data-category="tools">
+            <div class="category-icon">
+              <i class="ri-tools-line"></i>
+            </div>
+            <h5>Tools</h5>
+            <p>Development Tools</p>
+          </div>
         </div>
-        <div class="skill-item">
-          <div class="skill-label"><span>Bootstrap</span><span>88%</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" data-percentage="88"></div></div>
+        <div class="col-md-3 mb-3">
+          <div class="skill-category-card" data-category="soft">
+            <div class="category-icon">
+              <i class="ri-user-heart-line"></i>
+            </div>
+            <h5>Soft Skills</h5>
+            <p>Professional Skills</p>
+          </div>
         </div>
-        <div class="skill-item">
-          <div class="skill-label"><span>React</span><span>85%</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" data-percentage="85"></div></div>
+      </div>
+    </div>
+    
+    <!-- Skills Content -->
+    <div class="skills-content">
+      <!-- Frontend Skills -->
+      <div class="skills-panel active" id="frontend-skills">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-html5-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>HTML5 & Semantic Markup</h5>
+                  <p>Advanced HTML5 features and accessibility</p>
+                </div>
+                <div class="skill-percentage">95%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="95">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-css3-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>CSS3 & Preprocessors</h5>
+                  <p>Sass, Less, and modern CSS features</p>
+                </div>
+                <div class="skill-percentage">92%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="92">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-javascript-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>JavaScript (ES6+)</h5>
+                  <p>Modern JavaScript and frameworks</p>
+                </div>
+                <div class="skill-percentage">90%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="90">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-6">
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-reactjs-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>React & React Native</h5>
+                  <p>Component-based development</p>
+                </div>
+                <div class="skill-percentage">88%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="88">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-vuejs-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Vue.js</h5>
+                  <p>Progressive JavaScript framework</p>
+                </div>
+                <div class="skill-percentage">85%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="85">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-bootstrap-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Bootstrap & Tailwind</h5>
+                  <p>CSS frameworks and utilities</p>
+                </div>
+                <div class="skill-percentage">87%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="87">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="skill-item">
-          <div class="skill-label"><span>Node.js</span><span>80%</span></div>
-          <div class="skill-bar"><div class="skill-bar-fill" data-percentage="80"></div></div>
+      </div>
+      
+      <!-- Backend Skills -->
+      <div class="skills-panel" id="backend-skills">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-nodejs-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Node.js & Express</h5>
+                  <p>Server-side JavaScript development</p>
+                </div>
+                <div class="skill-percentage">85%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="85">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-database-2-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>MongoDB & PostgreSQL</h5>
+                  <p>Database design and management</p>
+                </div>
+                <div class="skill-percentage">80%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="80">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-6">
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-firebase-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Firebase & AWS</h5>
+                  <p>Cloud services and deployment</p>
+                </div>
+                <div class="skill-percentage">75%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="75">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-git-branch-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>RESTful APIs</h5>
+                  <p>API design and development</p>
+                </div>
+                <div class="skill-percentage">82%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="82">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tools Skills -->
+      <div class="skills-panel" id="tools-skills">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-git-branch-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Git & GitHub</h5>
+                  <p>Version control and collaboration</p>
+                </div>
+                <div class="skill-percentage">90%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="90">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-figma-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Figma & Adobe XD</h5>
+                  <p>UI/UX design and prototyping</p>
+                </div>
+                <div class="skill-percentage">85%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="85">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-6">
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-terminal-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>VS Code & Terminal</h5>
+                  <p>Development environment</p>
+                </div>
+                <div class="skill-percentage">88%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="88">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-docker-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Docker & CI/CD</h5>
+                  <p>Containerization and deployment</p>
+                </div>
+                <div class="skill-percentage">70%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="70">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Soft Skills -->
+      <div class="skills-panel" id="soft-skills">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-team-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Team Collaboration</h5>
+                  <p>Working effectively in teams</p>
+                </div>
+                <div class="skill-percentage">95%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="95">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-lightbulb-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Problem Solving</h5>
+                  <p>Analytical thinking and solutions</p>
+                </div>
+                <div class="skill-percentage">90%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="90">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-6">
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-time-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Time Management</h5>
+                  <p>Efficient project delivery</p>
+                </div>
+                <div class="skill-percentage">88%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="88">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="skill-item-modern">
+              <div class="skill-header">
+                <div class="skill-icon">
+                  <i class="ri-customer-service-2-line"></i>
+                </div>
+                <div class="skill-info">
+                  <h5>Communication</h5>
+                  <p>Clear and effective communication</p>
+                </div>
+                <div class="skill-percentage">92%</div>
+              </div>
+              <div class="skill-progress-modern">
+                <div class="progress-bar-modern" data-width="92">
+                  <div class="progress-fill"></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1604,35 +2311,196 @@
 <!-- Portfolio Section -->
 <section class="portfolio-section section-animate section-rotate" id="portfolio">
   <div class="container">
-    <h2 class="portfolio-title">Portfolio</h2>
-    <div class="row">
-      <div class="col-md-4">
-        <div class="project-card">
-          <img src="assets/img/portfolio1.jpg" class="project-img" alt="Project 1">
-          <div class="project-overlay">
-            <h5>Project One</h5>
-            <p>A modern web app for managing tasks efficiently with a clean UI.</p>
-            <a href="#" class="btn btn-light btn-sm mt-2">View Project</a>
+    <div class="section-title text-center mb-5">
+      <h2 class="gradient-text">My Projects</h2>
+      <p class="text-muted">Explore my latest work and creative solutions</p>
+    </div>
+    
+    <!-- Portfolio Filter -->
+    <div class="portfolio-filter text-center mb-5">
+      <button class="filter-btn active" data-filter="all">All Projects</button>
+      <button class="filter-btn" data-filter="web">Web Apps</button>
+      <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+      <button class="filter-btn" data-filter="design">UI/UX Design</button>
+    </div>
+    
+    <div class="row portfolio-grid">
+      <!-- Project 1 -->
+      <div class="col-lg-4 col-md-6 mb-4 portfolio-item" data-category="web">
+        <div class="project-card-modern">
+          <div class="project-image-container">
+            <div class="project-image-placeholder web-gradient">
+              <i class="ri-code-s-slash-line"></i>
+            </div>
+            <div class="project-overlay-modern">
+              <div class="project-overlay-content">
+                <h4>TaskFlow Pro</h4>
+                <p>A modern task management web application with real-time collaboration features.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">React</span>
+                  <span class="tech-tag">Node.js</span>
+                  <span class="tech-tag">MongoDB</span>
+                </div>
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="ri-external-link-line"></i> Live Demo</a>
+                  <a href="#" class="project-link"><i class="ri-github-line"></i> Code</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h5>TaskFlow Pro</h5>
+            <p>Task Management Web App</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="project-card">
-          <img src="assets/img/portfolio2.jpg" class="project-img" alt="Project 2">
-          <div class="project-overlay">
-            <h5>Project Two</h5>
-            <p>A responsive portfolio website template for creative professionals.</p>
-            <a href="#" class="btn btn-light btn-sm mt-2">View Project</a>
+      
+      <!-- Project 2 -->
+      <div class="col-lg-4 col-md-6 mb-4 portfolio-item" data-category="mobile">
+        <div class="project-card-modern">
+          <div class="project-image-container">
+            <div class="project-image-placeholder mobile-gradient">
+              <i class="ri-smartphone-line"></i>
+            </div>
+            <div class="project-overlay-modern">
+              <div class="project-overlay-content">
+                <h4>FitTracker</h4>
+                <p>A comprehensive fitness tracking mobile app with personalized workout plans.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">React Native</span>
+                  <span class="tech-tag">Firebase</span>
+                  <span class="tech-tag">Redux</span>
+                </div>
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="ri-external-link-line"></i> App Store</a>
+                  <a href="#" class="project-link"><i class="ri-github-line"></i> Code</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h5>FitTracker</h5>
+            <p>Fitness Tracking Mobile App</p>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="project-card">
-          <img src="assets/img/portfolio3.jpg" class="project-img" alt="Project 3">
-          <div class="project-overlay">
-            <h5>Project Three</h5>
-            <p>A landing page for a SaaS product with conversion-focused design.</p>
-            <a href="#" class="btn btn-light btn-sm mt-2">View Project</a>
+      
+      <!-- Project 3 -->
+      <div class="col-lg-4 col-md-6 mb-4 portfolio-item" data-category="design">
+        <div class="project-card-modern">
+          <div class="project-image-container">
+            <div class="project-image-placeholder design-gradient">
+              <i class="ri-palette-line"></i>
+            </div>
+            <div class="project-overlay-modern">
+              <div class="project-overlay-content">
+                <h4>EcoShop Design</h4>
+                <p>Complete UI/UX design system for an eco-friendly e-commerce platform.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">Figma</span>
+                  <span class="tech-tag">Adobe XD</span>
+                  <span class="tech-tag">Prototyping</span>
+                </div>
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="ri-external-link-line"></i> View Design</a>
+                  <a href="#" class="project-link"><i class="ri-dribbble-line"></i> Dribbble</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h5>EcoShop Design</h5>
+            <p>E-commerce UI/UX Design</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Project 4 -->
+      <div class="col-lg-4 col-md-6 mb-4 portfolio-item" data-category="web">
+        <div class="project-card-modern">
+          <div class="project-image-container">
+            <div class="project-image-placeholder web-gradient">
+              <i class="ri-store-2-line"></i>
+            </div>
+            <div class="project-overlay-modern">
+              <div class="project-overlay-content">
+                <h4>EcoShop Platform</h4>
+                <p>A full-stack e-commerce platform with advanced features and analytics.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">Vue.js</span>
+                  <span class="tech-tag">Express.js</span>
+                  <span class="tech-tag">PostgreSQL</span>
+                </div>
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="ri-external-link-line"></i> Live Demo</a>
+                  <a href="#" class="project-link"><i class="ri-github-line"></i> Code</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h5>EcoShop Platform</h5>
+            <p>E-commerce Web Platform</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Project 5 -->
+      <div class="col-lg-4 col-md-6 mb-4 portfolio-item" data-category="mobile">
+        <div class="project-card-modern">
+          <div class="project-image-container">
+            <div class="project-image-placeholder mobile-gradient">
+              <i class="ri-music-2-line"></i>
+            </div>
+            <div class="project-overlay-modern">
+              <div class="project-overlay-content">
+                <h4>SoundWave</h4>
+                <p>A music streaming app with personalized playlists and social features.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">Flutter</span>
+                  <span class="tech-tag">Dart</span>
+                  <span class="tech-tag">Spotify API</span>
+                </div>
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="ri-external-link-line"></i> App Store</a>
+                  <a href="#" class="project-link"><i class="ri-github-line"></i> Code</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h5>SoundWave</h5>
+            <p>Music Streaming Mobile App</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Project 6 -->
+      <div class="col-lg-4 col-md-6 mb-4 portfolio-item" data-category="design">
+        <div class="project-card-modern">
+          <div class="project-image-container">
+            <div class="project-image-placeholder design-gradient">
+              <i class="ri-bank-card-line"></i>
+            </div>
+            <div class="project-overlay-modern">
+              <div class="project-overlay-content">
+                <h4>FinTech Dashboard</h4>
+                <p>Modern dashboard design for financial technology applications.</p>
+                <div class="project-tech">
+                  <span class="tech-tag">Sketch</span>
+                  <span class="tech-tag">Principle</span>
+                  <span class="tech-tag">Design System</span>
+                </div>
+                <div class="project-links">
+                  <a href="#" class="project-link"><i class="ri-external-link-line"></i> View Design</a>
+                  <a href="#" class="project-link"><i class="ri-behance-line"></i> Behance</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="project-info">
+            <h5>FinTech Dashboard</h5>
+            <p>Financial Dashboard UI Design</p>
           </div>
         </div>
       </div>
@@ -1801,6 +2669,104 @@
         });
       });
     });
+    
+    // Portfolio Filter Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const portfolioItems = document.querySelectorAll('.portfolio-item');
+      
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active class from all buttons
+          filterBtns.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+          
+          const filter = this.getAttribute('data-filter');
+          
+          portfolioItems.forEach(item => {
+            const category = item.getAttribute('data-category');
+            
+            if (filter === 'all' || category === filter) {
+              item.style.display = 'block';
+              item.style.animation = 'fadeInUp 0.6s ease forwards';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+    
+    // Skills Category Switching
+    document.addEventListener('DOMContentLoaded', function() {
+      const categoryCards = document.querySelectorAll('.skill-category-card');
+      const skillsPanels = document.querySelectorAll('.skills-panel');
+      
+      categoryCards.forEach(card => {
+        card.addEventListener('click', function() {
+          const category = this.getAttribute('data-category');
+          
+          // Remove active class from all category cards
+          categoryCards.forEach(c => c.classList.remove('active'));
+          // Add active class to clicked card
+          this.classList.add('active');
+          
+          // Hide all skills panels
+          skillsPanels.forEach(panel => panel.classList.remove('active'));
+          // Show selected skills panel
+          document.getElementById(category + '-skills').classList.add('active');
+          
+          // Animate progress bars for the active panel
+          setTimeout(() => {
+            const progressBars = document.querySelectorAll('.progress-bar-modern');
+            progressBars.forEach(bar => {
+              const width = bar.getAttribute('data-width');
+              const fill = bar.querySelector('.progress-fill');
+              fill.style.width = width + '%';
+            });
+          }, 300);
+        });
+      });
+    });
+    
+    // Enhanced skill bar animation
+    function animateModernSkillBars() {
+      const skillItems = document.querySelectorAll('.skill-item-modern');
+      const triggerBottom = window.innerHeight * 0.85;
+      
+      skillItems.forEach(item => {
+        const rect = item.getBoundingClientRect();
+        if (rect.top < triggerBottom) {
+          const progressBar = item.querySelector('.progress-bar-modern');
+          const fill = progressBar.querySelector('.progress-fill');
+          const width = progressBar.getAttribute('data-width');
+          
+          setTimeout(() => {
+            fill.style.width = width + '%';
+          }, 200);
+        }
+      });
+    }
+    
+    window.addEventListener('scroll', animateModernSkillBars);
+    document.addEventListener('DOMContentLoaded', animateModernSkillBars);
+    
+    // Add fadeInUp animation keyframe
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
   <script>
 // Dynamic Role (Typewriter)
